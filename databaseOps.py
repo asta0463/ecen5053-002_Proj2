@@ -41,7 +41,7 @@ def showdb():
 
 
     
-    
+'''   
 def calcAverage(key):
     """ function to calculate average of temperature of humidity or temperature
     the required can be passed as a string to the function """
@@ -52,9 +52,9 @@ def calcAverage(key):
         total=total+i[key]
     return total/len(res)    
 
-print(calcAverage("temperature"))    
+#print(calcAverage("temperature"))    
 #def getaverage():
     
 #dt2day=datetime.today()
-
+'''
  
