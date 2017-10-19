@@ -11,10 +11,8 @@ from datetime import datetime
 from window_template import Ui_MainWindow
 import sendgrid
 from sendgrid.helpers.mail import *
+import sensorRead as sensorRead
 
-import Adafruit_DHT
-sensor = Adafruit_DHT.DHT22
-pin = 4
 
 #initializing all global variables
 update_interval=1 # interval in mins at which data is auto updated
@@ -63,7 +61,7 @@ def update_data():
     
     threading.Timer(60*update_interval,update_data).start() # to autorun function once every update interval
     
-    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+    humidity, temperature = sensorRead.get_TempHum()
     time=datetime.now().strftime('%b-%d-%Y %H:%M:%S')
     ui.label_updateTime.setText(time)
     
@@ -91,7 +89,7 @@ def update_Inputs():
     alarm_check()
     PhProvider=ui.phCoIn.currentText()
     email=Phone_Num+phoneCompanies[PhProvider]
-    print(update_interval)
+    #print(update_interval)
     
 def alarm_check(): 
     """Check for alarm condition"""
