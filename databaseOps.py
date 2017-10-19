@@ -14,7 +14,9 @@ dbSamplingInterval=5 # interval in seconds when data is updated in the database
 db = TinyDB('proj2Db.json')
 
 def addDataToDb(): 
-    """ function to update temp, humidity into database """
+    """ function to update temp, humidity into database 
+    the timestamp is split into different keys for year,month , day, hour, min and sec 
+    as tinydb cannot read in the python datetime type"""
     global dbSamplingInterval
     
     threading.Timer(dbSamplingInterval,addDataToDb).start() # to autorun function once every update interval
@@ -25,36 +27,68 @@ def addDataToDb():
                'timestamp_minute': datetime.now().minute,'timestamp_second': datetime.now().second,
                'temperature':temperature,'humidity':humidity})
 
-def maketimestamp(item):
-    
-    return datetime(item['timestamp_year'],item['timestamp_month'],item['timestamp_day'],
-        item['timestamp_hour'],item['timestamp_minute'],item['timestamp_second'])    
+def getDateTime(ts):
+    """Converts the multiple key/values from db into single time stamp of the datetime type"""
+    return datetime(ts['timestamp_year'],ts['timestamp_month'],ts['timestamp_day'],
+        ts['timestamp_hour'],ts['timestamp_minute'],ts['timestamp_second'])    
+
+def getDate(ts):
+    """ same as above function but to get a date without time stamp"""
+    return getDateTime(ts).date()
+
+def getTime(ts):
+    """ same as above function but to get a time without date"""
+    return getDateTime(ts).time()
+
     
 def showdb():
     """ function to display all items in database in timestamp, temp , humidity format,
     to be used for debugging purposes"""
     print("date"," ","time"," ","temperature"," ","humidity")
     for item in db:
-        print(datetime(item['timestamp_year'],item['timestamp_month'],item['timestamp_day'],
-        item['timestamp_hour'],item['timestamp_minute'],item['timestamp_second'])
-        ,"", item['temperature'],item['humidity'])
-
-
+        print(getDateTime(item),",", item['temperature'],",",item['humidity'])
+   
     
-'''   
-def calcAverage(key):
-    """ function to calculate average of temperature of humidity or temperature
-    the required can be passed as a string to the function """
+def calcDayAverage(key):
+    """ function to calculate average of temperature or humidity for current day,
+    the required param temperature/humidity can be passed as a string to the function """
+    curTime=datetime.now()
     total=0
     ts=Query()
-    res=db.search((ts.timestamp_minute==20) & (ts.timestamp_second>10))
+    res=db.search((ts.timestamp_year==curTime.year) & (ts.timestamp_month==curTime.month) &
+    (ts.timestamp_day== curTime.day))
     for i in res:
         total=total+i[key]
-    return total/len(res)    
+    if(len(res)>0):
+        avg=total/len(res)
+    else:
+        avg=0
+    return curTime,avg  
 
+def calcDayMaximum(key):
+    """ function to calculate maximum of temperature or humidity for current day,
+    the required param temperature/humidity can be passed as a string to the function """
+    curTime=datetime.now()
+    ts=Query()
+    res=db.search((ts.timestamp_year==curTime.year) & (ts.timestamp_month==curTime.month) &
+    (ts.timestamp_day== curTime.day))
+    maxRec=max(res, key=lambda x:x[key])
+    return getDateTime(maxRec),maxRec[key]
+
+def calcDayMinimum(key):
+    """ function to calculate minimum of temperature or humidity for current day,
+    the required param temperature/humidity can be passed as a string to the function """
+    curTime=datetime.now()
+    ts=Query()
+    res=db.search((ts.timestamp_year==curTime.year) & (ts.timestamp_month==curTime.month) &
+    (ts.timestamp_day== curTime.day))
+    minRec=min(res, key=lambda x:x[key])
+    return getDateTime(minRec),minRec[key]
+
+#showdb()
+#print(datetime(datetime.now().year,datetime.now().month,datetime.now().day).time())
 #print(calcAverage("temperature"))    
-#def getaverage():
+t,v=calcDayMaximum("temperature")
+print(t.strftime('%b-%d-%Y %H:%M:%S')," ",v)
     
-#dt2day=datetime.today()
-'''
  

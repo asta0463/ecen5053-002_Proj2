@@ -17,8 +17,8 @@ import sensorRead as sensorRead
 #initializing all global variables
 update_interval=1 # interval in mins at which data is auto updated
 unit=0 # 1 is degF and 0 is degC
-temp_alarm_lim=28
-Phone_Num=7202298666
+temp_alarm_lim=35
+Phone_Num=2003004000
 email=""
 temperature=22
 messageSent=0
@@ -65,8 +65,8 @@ def update_data():
     time=datetime.now().strftime('%b-%d-%Y %H:%M:%S')
     ui.label_updateTime.setText(time)
     
-    if(unit==1 and temperature!=None): # if unit is set to degF convert value to degF
-        temperature=(temperature*1.8)+32 
+    if(unit==1 and temperature!=None): # if unit is set to degF convert temperature to degF
+        temperature=sensorRead.todegF(temperature) 
     
     if(temperature==None): # handling data not being sent
         ui.lcd_temperature.display("Err")
@@ -94,10 +94,10 @@ def update_Inputs():
 def alarm_check(): 
     """Check for alarm condition"""
     global temp_alarm_lim,temperature,temp_alarm,unit
-    if((unit==1 and temperature>(int(temp_alarm_lim)*1.8)+32) 
+    if((unit==1 and temperature>(int(sensorRead.todegF(temp_alarm_lim)))) 
     or (unit==0 and temperature>int(temp_alarm_lim))):
         set_alarm()
-    elif((unit==1 and temperature<((int(temp_alarm_lim)-1)*1.8)+32) 
+    elif((unit==1 and temperature<(int(sensorRead.todegF(temp_alarm_lim-1)))) 
     or (unit==0 and temperature<int(temp_alarm_lim)-1)):
         reset_alarm()
         

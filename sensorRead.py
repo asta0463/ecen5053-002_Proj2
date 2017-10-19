@@ -12,3 +12,6 @@ pin = 4
 
 def get_TempHum():
     return Adafruit_DHT.read_retry(sensor, pin)
+
+def todegF(degc):
+    return (degc*1.8)+32
