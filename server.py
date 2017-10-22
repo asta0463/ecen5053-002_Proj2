@@ -6,10 +6,17 @@ code to setup tornado web server
 """
 import tornado.ioloop
 import tornado.web
+import databaseOps
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("Hello, world")
+
+class getData(tornado.web.RequestHandler):
+    def get(self):
+        h,t=databaseOps.getData()
+        self.write("Humidity ",h," ","Temperature ",t)
+        print(h," ",t)
 
 def make_app():
     return tornado.web.Application([
@@ -17,6 +24,7 @@ def make_app():
     ])
 
 application = tornado.web.Application([
+    (r"/getdata",getData),    
 	(r"/(.*)", tornado.web.StaticFileHandler, {"path": ".","default_filename": "index.html"}),
 ])    
    

@@ -1,9 +1,75 @@
 <!DOCTYPE html>
 <html>
-<body>
 
-<h1>ECEN5053-002 Project 2 Temperature Humidity Viewer</h1>
-<p>Display data here</p>
+<head>
+<title> Project2 ECEN5053-002 </title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	
+	$('input[type=radio][name=unit]').on('change', function(){
+	$("#temp_unit").text($(this).val());
+	$("#temp_unit1").text($(this).val());
+	$("#temp_unit2").text($(this).val());
+	$("#temp_unit3").text($(this).val());
+	$("#temp_unit4").text($(this).val());
+	});
+	 
+	
+    $("#btn1").click(function(){
+        var unitCF = $('#unit:checked').val(); 
+		$("#test1").text(unitCF);
+    });
+    $("#btn2").click(function(){
+        $("#test2").html("<b>Hello world!</b>");
+    });
+    $("#btn3").click(function(){
+        $("#test3").val("Dolly Duck");
+    });
+});
+</script>
+</head>
+
+<body id="full_page">
+<!--<img src =http://i58.tinypic.com/v4mngx.jpg alt="CU Boulder Logo" 
+style="width:175px;height:128px; align:center;float:left"> </img> -->
+<h1 style="text-align:center;"> ECEN5053-002 Project 2 </h1>
+<h2 style="text-align:center;">Temperature and Humidity Viewer </h2>
+
+<div id="container">
+  <div id="basic_display">
+  <input type="radio" name="unit" value="C" checked> &deg;C
+  <input type="radio" name="unit" value="F"> &deg;F
+  <h2> Current Temperature: <div id="cur_temp"> 22.5 </div>&deg;<div id="temp_unit">C <div></h2> 
+  <h2> Current Humidity: <div id="cur_hum"> 54.3</div> %RH </h2>
+  </div>
+  
+  <div id="historic_display">
+  <h4> <button id="get_last_temp">Update</button> Last Temperature: <div id="last_temp"> 22.5 </div>&deg;<div id="temp_unit1">C <div> </h4> 
+  <h4> <button id="get_avg_temp">Update</button> Average Temperature:<div id="avg_temp"> 22.5 </div>&deg;<div id="temp_unit2">C <div> </h4>
+  <h4> <button id="get_max_temp">Update</button> Maximum Temperature:<div id="max_temp"> 22.5 </div>&deg;<div id="temp_unit3">C <div> </h4>
+  <h4> <button id="get_min_temp">Update</button> Minimum Temperature:<div id="min_temp"> 22.5 </div>&deg;<div id="temp_unit4">C <div> </h4>
+ 
+  <h4> <button id="get_last_hum">Update</button> Last Humidity: <div id="last_hum"> 54.6 </div> %RH</h4> 
+  <h4> <button id="get_avg_hum">Update</button> Average Humidity: <div id="avg_hum"> 54.6 </div> %RH</h4>
+  <h4> <button id="get_max_hum">Update</button> Maximum Humidity: <div id="max_hum"> 54.6</div> %RH</h4>
+  <h4> <button id="get_min_hum">Update</button> Minimum Humidity: <div id="min_hum"> 54.6</div> %RH</h4>
+  </div>
+</div>
+
+<!-- embed graph here -->
+
+<!--
+<p id="test1">This is a paragraph.</p>
+<p id="test2">This is another paragraph.</p>
+
+<p>Input field: <input type="text" id="test3" value="Mickey Mouse"></p>
+
+<button id="btn1">Set Text</button>
+<button id="btn2">Set HTML</button>
+<button id="btn3">Set Value</button>
+-->
 
 </body>
 </html>

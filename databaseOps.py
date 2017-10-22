@@ -13,6 +13,9 @@ dbSamplingInterval=5 # interval in seconds when data is updated in the database
 
 db = TinyDB('proj2Db.json')
 
+def getData():
+    return sensorRead.get_TempHum()
+
 def addDataToDb(): 
     """ function to update temp, humidity into database 
     the timestamp is split into different keys for year,month , day, hour, min and sec 
@@ -88,7 +91,7 @@ def calcDayMinimum(key):
 #showdb()
 #print(datetime(datetime.now().year,datetime.now().month,datetime.now().day).time())
 #print(calcAverage("temperature"))    
-t,v=calcDayMaximum("temperature")
-print(t.strftime('%b-%d-%Y %H:%M:%S')," ",v)
+#t,v=calcDayMaximum("temperature")
+#print(t.strftime('%b-%d-%Y %H:%M:%S')," ",v)
     
  

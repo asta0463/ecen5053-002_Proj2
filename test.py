@@ -9,3 +9,4 @@ import databaseOps
 
 #databaseOps.addDataToDb()
 databaseOps.showdb()
+#print(databaseOps.getData())
