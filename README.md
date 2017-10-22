@@ -1,6 +1,14 @@
 # ecen5053-002_Proj2
 Project 2 for Embedded Interface Design
 
+Install instructions
+
+
+
+
+
+
+
 ///// Sensor RPI3
 
 temp sensor connected to rpi3 to take readings once every 5 seconds, and 
