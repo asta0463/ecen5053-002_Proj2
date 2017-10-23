@@ -18,7 +18,9 @@ Uses tinydb as the database, can be installed by running
 pip3 install tinydb 
 
 Run instructions
+The jacascript used are from google APIs, the raspberry pi running this will require internet connection
 the websocket is setup for ip address 192.168.43.185 , this may have to be changed in the main.js file
+
 run server.py to start the websocket server and data collection in the database
 to view GUI run the python file local.py
 
@@ -34,6 +36,25 @@ local.py - qt GUI program to display data
 
 
 Project Work --  Aakash Kumar - responsible for all parts
+
+Refferences
+
+maximum calculation code from https://stackoverflow.com/questions/5320871/in-list-of-dicts-find-min-value-of-a-common-dict-field
+
+2 column html css layout https://www.thesitewizard.com/css/design-2-column-layout.shtml
+
+deg C deg F encoding https://stackoverflow.com/questions/10797686/best-way-to-encode-degree-celsius-symbol-into-web-page
+
+radio button usage https://stackoverflow.com/questions/6654601/jquery-if-radio-button-is-checked
+
+javascript splitting strings :https://stackoverflow.com/questions/3522406/javascript-split-string-straight-to-variables
+
+sockets usage :http://blog.teamtreehouse.com/an-introduction-to-websockets
+				http://fabacademy.org/archives/2015/doc/WebSocketConsole.html
+				
+javascript and html tutorials on w3schools.com				
+
+basic usage of websockets https://os.mbed.com/cookbook/Websockets-Server
 
 
 
