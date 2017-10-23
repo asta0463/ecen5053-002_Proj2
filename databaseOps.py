@@ -13,8 +13,54 @@ dbSamplingInterval=5 # interval in seconds when data is updated in the database
 
 db = TinyDB('proj2Db.json')
 
-def getData():
-    return sensorRead.get_TempHum()
+def getData(unit):
+    h,t= sensorRead.get_TempHum()
+    if(unit==1):
+        t=sensorRead.todegF(t)
+    return (str(round(t,2))+','+str(round(h,2)))
+
+def ws_cur_data(unit):
+    return('cur_data'+','+datetime.now().strftime('%b-%d-%Y %H:%M:%S')+','+getData(unit))
+
+def ws_avg_temp(unit):
+    ts,val = calcDayAverage("temperature")
+    if(unit==1):
+        val=sensorRead.todegF(val)
+    return('avg_temp'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
+
+def ws_max_temp(unit):
+    ts,val = calcDayMaximum("temperature")
+    if(unit==1):
+        val=sensorRead.todegF(val)
+    return('max_temp'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
+
+def ws_min_temp(unit):
+    ts,val = calcDayMinimum("temperature")
+    if(unit==1):
+        val=sensorRead.todegF(val)
+    return('min_temp'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
+
+def ws_last_temp(unit):
+    ts,val = calcLastVal("temperature")
+    if(unit==1):
+        val=sensorRead.todegF(val)
+    return('last_temp'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
+
+def ws_last_hum():
+    ts,val = calcLastVal("humidity")
+    return('last_hum'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
+
+def ws_avg_hum():
+    ts,val = calcDayAverage("humidity")
+    return('avg_hum'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
+
+def ws_max_hum():
+    ts,val = calcDayMaximum("humidity")
+    return('max_hum'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
+
+def ws_min_hum():
+    ts,val = calcDayMinimum("humidity")
+    return('min_hum'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
 
 def addDataToDb(): 
     """ function to update temp, humidity into database 
@@ -69,6 +115,16 @@ def calcDayAverage(key):
     return curTime,avg  
 
 def calcDayMaximum(key):
+    """ function to calculate maximum of temperature or humidity for current day,
+    the required param temperature/humidity can be passed as a string to the function """
+    curTime=datetime.now()
+    ts=Query()
+    res=db.search((ts.timestamp_year==curTime.year) & (ts.timestamp_month==curTime.month) &
+    (ts.timestamp_day== curTime.day))
+    maxRec=max(res, key=lambda x:x[key])
+    return getDateTime(maxRec),maxRec[key]
+
+def calcLastVal(key):
     """ function to calculate maximum of temperature or humidity for current day,
     the required param temperature/humidity can be passed as a string to the function """
     curTime=datetime.now()

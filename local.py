@@ -12,6 +12,7 @@ from window_template import Ui_MainWindow
 import sendgrid
 from sendgrid.helpers.mail import *
 import sensorRead as sensorRead
+import databaseOps as dbops
 
 
 #initializing all global variables
@@ -79,6 +80,75 @@ def update_data():
         ui.lcd_humidity.display(humidity)
     
     alarm_check()
+    update_last_temp()
+    update_avg_temp()
+    update_max_temp()
+    update_min_temp()
+    update_last_hum()
+    update_avg_hum()
+    update_max_hum()
+    update_min_hum()
+    
+
+def update_avg_temp():
+    global unit
+    ts,val = dbops.calcDayAverage("temperature")
+    ui.temp_unit_2.setText('degC')
+    if(unit==1):
+        val=sensorRead.todegF(val)
+        ui.temp_unit_2.setText('degF')
+    ui.avg_temp.setText(str(round(val,2)))
+    ui.avg_temp_ts.setText(ts.strftime('%b-%d-%Y %H:%M:%S'))
+
+def update_last_temp():
+    global unit
+    ts,val = dbops.calcLastVal("temperature")
+    ui.temp_unit_1.setText('degC')
+    if(unit==1):
+        val=sensorRead.todegF(val)
+        ui.temp_unit_1.setText('degF')
+    ui.last_temp.setText(str(round(val,2)))
+    ui.last_temp_ts.setText(ts.strftime('%b-%d-%Y %H:%M:%S'))
+
+def update_max_temp():
+    global unit
+    ts,val = dbops.calcDayMaximum("temperature")
+    ui.temp_unit_3.setText('degC')
+    if(unit==1):
+        val=sensorRead.todegF(val)
+        ui.temp_unit_3.setText('degF')
+    ui.max_temp.setText(str(round(val,2)))
+    ui.max_temp_ts.setText(ts.strftime('%b-%d-%Y %H:%M:%S'))    
+    
+def update_min_temp():
+    global unit
+    ts,val = dbops.calcDayMinimum("temperature")
+    ui.temp_unit_4.setText('degC')
+    if(unit==1):
+        val=sensorRead.todegF(val)
+        ui.temp_unit_4.setText('degF')
+    ui.min_temp.setText(str(round(val,2)))
+    ui.min_temp_ts.setText(ts.strftime('%b-%d-%Y %H:%M:%S'))     
+    
+def update_min_hum():
+    ts,val = dbops.calcDayMinimum("humidity")
+    ui.min_hum.setText(str(round(val,2)))
+    ui.min_hum_ts.setText(ts.strftime('%b-%d-%Y %H:%M:%S'))        
+
+def update_max_hum():
+    ts,val = dbops.calcDayMaximum("humidity")
+    ui.max_hum.setText(str(round(val,2)))
+    ui.max_hum_ts.setText(ts.strftime('%b-%d-%Y %H:%M:%S'))    
+    
+def update_avg_hum():
+    ts,val = dbops.calcDayAverage("humidity")
+    ui.avg_hum.setText(str(round(val,2)))
+    ui.avg_hum_ts.setText(ts.strftime('%b-%d-%Y %H:%M:%S'))    
+    
+def update_last_hum():
+    ts,val = dbops.calcLastVal("humidity")
+    ui.last_hum.setText(str(round(val,2)))
+    ui.last_hum_ts.setText(ts.strftime('%b-%d-%Y %H:%M:%S'))       
     
 def update_Inputs():
     """ function to update inputs read from the settings screen"""

@@ -17,22 +17,25 @@ style="width:175px;height:128px; align:center;float:left"> </img> -->
 
 <div id="container">
   <div id="basic_display">
+  <h4>Change Unit
   <input type="radio" name="unit" value="C" checked> &deg;C
-  <input type="radio" name="unit" value="F"> &deg;F
-  <h2> Current Temperature: <div id="cur_temp"> 22.5 </div>&deg;<div id="temp_unit">C <div></h2> 
-  <h2> Current Humidity: <div id="cur_hum"> 54.3</div> %RH </h2>
+  <input type="radio" name="unit" value="F"> &deg;F </h4>
+  <h2> Current Temperature: <div id="cur_temp"> .. </div>&deg;<div id="temp_unit">C <div></h2> 
+  <h2> Current Humidity: <div id="cur_hum"> ..</div> %RH </h2>
+  <h5> Updated Time: <div id="cur_time"> </div> </h5>
+  <button id="cur_data">Refresh</button>
   </div>
   
   <div id="historic_display">
-  <h4> <button id="get_last_temp">Update</button> Last Temperature: <div id="last_temp"> 22.5 </div>&deg;<div id="temp_unit1">C <div> </h4> 
-  <h4> <button id="get_avg_temp">Update</button> Average Temperature:<div id="avg_temp"> 22.5 </div>&deg;<div id="temp_unit2">C <div> </h4>
-  <h4> <button id="get_max_temp">Update</button> Maximum Temperature:<div id="max_temp"> 22.5 </div>&deg;<div id="temp_unit3">C <div> </h4>
-  <h4> <button id="get_min_temp">Update</button> Minimum Temperature:<div id="min_temp"> 22.5 </div>&deg;<div id="temp_unit4">C <div> </h4>
+  <h4> <button id="get_last_temp">Update</button> Last Temperature: <div id="last_temp"> .. </div>&deg;<div id="temp_unit1">C </div> , timestamp: <div id="last_temp_ts"> ... </div> </h4> 
+  <h4> <button id="get_avg_temp">Update</button> Average Temperature:<div id="avg_temp"> .. </div>&deg;<div id="temp_unit2">C </div> , timestamp: <div id="avg_temp_ts"> ... </div></h4>
+  <h4> <button id="get_max_temp">Update</button> Maximum Temperature:<div id="max_temp"> .. </div>&deg;<div id="temp_unit3">C </div> , timestamp: <div id="max_temp_ts"> ... </div></h4>
+  <h4> <button id="get_min_temp">Update</button> Minimum Temperature:<div id="min_temp"> .. </div>&deg;<div id="temp_unit4">C </div> , timestamp: <div id="min_temp_ts"> ... </div></h4>
  
-  <h4> <button id="get_last_hum">Update</button> Last Humidity: <div id="last_hum"> 54.6 </div> %RH</h4> 
-  <h4> <button id="get_avg_hum">Update</button> Average Humidity: <div id="avg_hum"> 54.6 </div> %RH</h4>
-  <h4> <button id="get_max_hum">Update</button> Maximum Humidity: <div id="max_hum"> 54.6</div> %RH</h4>
-  <h4> <button id="get_min_hum">Update</button> Minimum Humidity: <div id="min_hum"> 54.6</div> %RH</h4>
+  <h4> <button id="get_last_hum">Update</button> Last Humidity: <div id="last_hum"> .. </div> %RH , timestamp: <div id="last_hum_ts"> ... </div></h4> 
+  <h4> <button id="get_avg_hum">Update</button> Average Humidity: <div id="avg_hum"> .. </div> %RH , timestamp: <div id="avg_hum_ts"> ... </div></h4>
+  <h4> <button id="get_max_hum">Update</button> Maximum Humidity: <div id="max_hum"> ..</div> %RH , timestamp: <div id="max_hum_ts"> ... </div></h4>
+  <h4> <button id="get_min_hum">Update</button> Minimum Humidity: <div id="min_hum"> ..</div> %RH , timestamp: <div id="min_hum_ts"> ... </div></h4>
   </div>
 </div>
 
