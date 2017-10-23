@@ -14,12 +14,12 @@ $(document).ready(function(){
 	
 	socket.onopen = function(){  
 	console.log("connected"); 
-	$("#temp_unit4").text("Connected")
+	$("#conn_status").text("Connected")
 	};
 	
-	socket.onopen = function(){  
+	socket.onclose = function(){  
 	console.log("connected"); 
-	$("#temp_unit4").text("Disconnected")
+	$("#conn_status").text("Disconnected")
 	};
 
 // Functions to request the correct data from tornado
