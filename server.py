@@ -79,9 +79,19 @@ class WSHandler(tornado.websocket.WebSocketHandler):
  
     def check_origin(self, origin):
         return True
- 
+
+class IndexHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('index.html') 
+
+class StaticFileHandler(tornado.web.RequestHandler):
+	def get(self):
+		self.render('main.js')
+    
 application = tornado.web.Application([
     (r'/ws', WSHandler),
+    (r"/", IndexHandler),
+    (r"/(.*)", tornado.web.StaticFileHandler, {'path':  './'}),
 ])
  
  

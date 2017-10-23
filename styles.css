@@ -1,11 +1,11 @@
 #basic_display {
 float: left ;
-  width: 50% ;
+  width: 40% ;
 }
 
 #historic_display{
 float: right ;
-  width: 50% ;
+  width: 60% ;
 }
 
 #last_temp{
