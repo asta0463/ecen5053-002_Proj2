@@ -8,6 +8,10 @@ float: right ;
   width: 60% ;
 }
 
+#conn_status{
+display:inline;
+}
+
 #last_temp{
 display:inline;
 }
