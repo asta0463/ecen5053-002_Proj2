@@ -157,7 +157,7 @@ def calcDayMaximum(key):
 def calcLastVal(key):
     """ function to get last value of temperature or humidity for current day,
     the required param temperature/humidity can be passed as a string to the function """
-    lastRec=db.all()[0]
+    lastRec=db.all()[-1]
     return getDateTime(lastRec),lastRec[key]
 
 def calcDayMinimum(key):

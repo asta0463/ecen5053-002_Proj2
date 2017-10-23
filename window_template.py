@@ -202,7 +202,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Project_1_5053-002"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Project_2_5053-002"))
         self.label_updateTime.setText(_translate("MainWindow", "Date Time"))
         self.label_RHunit.setText(_translate("MainWindow", "%RH"))
         self.radioButton_degC.setText(_translate("MainWindow", "degC"))

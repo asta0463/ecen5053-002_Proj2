@@ -8,9 +8,9 @@ Created on Wed Oct 18 21:42:10 2017
 import databaseOps
 
 #databaseOps.db.all()
-databaseOps.showdb()
+#databaseOps.showdb()
 #h,t = databaseOps.getData()
 #a,b = databaseOps.calcDayMaximum("temperature")
-#print(databaseOps.getDateTime(databaseOps.db.all()[0]))
+print(databaseOps.getDateTime(databaseOps.db.all()[-1]))
 
 #print(databaseOps.db.all())
