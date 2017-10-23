@@ -10,10 +10,16 @@ $(document).ready(function(){
 	console.log("sending "+$(this).val());
 	});
 	
-	var socket = new WebSocket('ws://localhost:8080/ws');
+	var socket = new WebSocket('ws://192.168.43.185:8080/ws');
 	
 	socket.onopen = function(){  
 	console.log("connected"); 
+	$("#temp_unit4").text("Connected")
+	};
+	
+	socket.onopen = function(){  
+	console.log("connected"); 
+	$("#temp_unit4").text("Disconnected")
 	};
 
 // Functions to request the correct data from tornado
