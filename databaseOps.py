@@ -75,6 +75,10 @@ def addDataToDb():
     threading.Timer(dbSamplingInterval,addDataToDb).start() # to autorun function once every update interval
     
     humidity, temperature = sensorRead.get_TempHum() #read temperature and humidity
+    if(temperature==None):
+        temperature=-1
+    if(humidity==None):
+        humidity=-1
     db.insert({'timestamp_year': datetime.now().year,'timestamp_month': datetime.now().month,
                'timestamp_day': datetime.now().day,'timestamp_hour': datetime.now().hour,
                'timestamp_minute': datetime.now().minute,'timestamp_second': datetime.now().second,
