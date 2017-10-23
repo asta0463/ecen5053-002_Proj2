@@ -60,7 +60,7 @@ def update_data():
     """ function to update temp, humidity and Alarm data on display """
     global update_interval,temperature,unit
     
-    threading.Timer(60*update_interval,update_data).start() # to autorun function once every update interval
+    threading.Timer(update_interval,update_data).start() # to autorun function once every update interval
     
     humidity, temperature = sensorRead.get_TempHum()
     time=datetime.now().strftime('%b-%d-%Y %H:%M:%S')
