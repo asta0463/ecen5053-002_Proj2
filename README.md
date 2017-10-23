@@ -1,4 +1,4 @@
-Aakash Kumar
+# Aakash Kumar
 
 ### Project 2 of ECEN-5053-002 Embedded Interface Design 
 Temperature Sensor Interface with Raspberry Pi and UI using QT Ability to switch between degF and degC values Auto refresh of values at user defined periods
