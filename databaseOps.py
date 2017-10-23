@@ -14,6 +14,9 @@ dbSamplingInterval=5 # interval in seconds when data is updated in the database
 db = TinyDB('proj2Db.json')
 
 def getData(unit):
+    """ function to get latest data from sensors , 
+    accounts for unit change from the webpage and
+    converts temperature values accordingly"""
     h,t= sensorRead.get_TempHum()
     if(t==None):
         t=-1
@@ -24,45 +27,64 @@ def getData(unit):
     return (str(round(t,2))+','+str(round(h,2)))
 
 def ws_cur_data(unit):
+    """function to provide temp and humidity data in the format that the jquery script needs
+    All data to websocket gets sent in a combined packet formatted as
+    requested_data_name,timestamp,temp,[humidity] 
+    the last parameter can be 1 or 2 depending on requested data
+    all of the data is formatted as string and then sent out"""
     return('cur_data'+','+datetime.now().strftime('%b-%d-%Y %H:%M:%S')+','+getData(unit))
 
 def ws_avg_temp(unit):
+    """function to provide average temp data in the format that the jquery script needs"""
     ts,val = calcDayAverage("temperature")
     if(unit==1):
         val=sensorRead.todegF(val)
     return('avg_temp'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
 
 def ws_max_temp(unit):
+    """function to provide maximum temp data in the format that the jquery script needs"""
     ts,val = calcDayMaximum("temperature")
     if(unit==1):
         val=sensorRead.todegF(val)
     return('max_temp'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
 
 def ws_min_temp(unit):
-    ts,val = calcDayMinimum("temperature")
-    if(unit==1):
+     """function to provide minimum temp data in the format that the jquery script needs"""
+     ts,val = calcDayMinimum("temperature")
+     if(unit==1):
         val=sensorRead.todegF(val)
-    return('min_temp'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
+     return('min_temp'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))        
+    
 
 def ws_last_temp(unit):
+    """function to provide last value of temp from database 
+    in the format that the jquery script needs"""
     ts,val = calcLastVal("temperature")
     if(unit==1):
         val=sensorRead.todegF(val)
     return('last_temp'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
 
 def ws_last_hum():
+    """function to provide last value of humidity from database 
+    in the format that the jquery script needs"""
     ts,val = calcLastVal("humidity")
     return('last_hum'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
 
 def ws_avg_hum():
+    """function to provide average humidity data 
+    in the format that the jquery script needs"""
     ts,val = calcDayAverage("humidity")
     return('avg_hum'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
 
 def ws_max_hum():
+    """function to provide maximum humidity data 
+    in the format that the jquery script needs"""
     ts,val = calcDayMaximum("humidity")
     return('max_hum'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
 
 def ws_min_hum():
+    """function to provide minimum humidity data 
+    in the format that the jquery script needs"""
     ts,val = calcDayMinimum("humidity")
     return('min_hum'+','+ts.strftime('%b-%d-%Y %H:%M:%S')+','+str(round(val,2)))
 
@@ -70,7 +92,7 @@ def addDataToDb():
     """ function to update temp, humidity into database 
     the timestamp is split into different keys for year,month , day, hour, min and sec 
     as tinydb cannot read in the python datetime type"""
-    global dbSamplingInterval
+    global dbSamplingInterval,docId
     
     threading.Timer(dbSamplingInterval,addDataToDb).start() # to autorun function once every update interval
     
@@ -133,14 +155,10 @@ def calcDayMaximum(key):
     return getDateTime(maxRec),maxRec[key]
 
 def calcLastVal(key):
-    """ function to calculate maximum of temperature or humidity for current day,
+    """ function to get last value of temperature or humidity for current day,
     the required param temperature/humidity can be passed as a string to the function """
-    curTime=datetime.now()
-    ts=Query()
-    res=db.search((ts.timestamp_year==curTime.year) & (ts.timestamp_month==curTime.month) &
-    (ts.timestamp_day== curTime.day))
-    maxRec=max(res, key=lambda x:x[key])
-    return getDateTime(maxRec),maxRec[key]
+    lastRec=db.all()[0]
+    return getDateTime(lastRec),lastRec[key]
 
 def calcDayMinimum(key):
     """ function to calculate minimum of temperature or humidity for current day,
@@ -152,10 +170,5 @@ def calcDayMinimum(key):
     minRec=min(res, key=lambda x:x[key])
     return getDateTime(minRec),minRec[key]
 
-#showdb()
-#print(datetime(datetime.now().year,datetime.now().month,datetime.now().day).time())
-#print(calcAverage("temperature"))    
-#t,v=calcDayMaximum("temperature")
-#print(t.strftime('%b-%d-%Y %H:%M:%S')," ",v)
     
  

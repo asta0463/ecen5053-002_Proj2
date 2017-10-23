@@ -1,59 +1,40 @@
-# ecen5053-002_Proj2
-Project 2 for Embedded Interface Design
+Aakash Kumar
 
-Install instructions
+Project 2 of ECEN-5053-002 Embedded Interface Design 
+Temperature Sensor Interface with Raspberry Pi and UI using QT Ability to switch between degF and degC values Auto refresh of values at user defined periods
+Using websockets to let another pi view the data collected on the sensor pi
 
+Installation Instructions Clone github repository from https://github.com/aakashpk/ecen5053-002_Proj2 
+The project uses sendgrid for emailing/messaging of alerts Install sendgrid python API using pip by running
 
+pip3 install sendgrid
 
+It requires use of tornado , can be installed by running if not already installed on the pi
 
+pip3 install tornado
 
+Uses tinydb as the database, can be installed by running 
 
+pip3 install tinydb 
 
-///// Sensor RPI3
+Run instructions
+the websocket is setup for ip address 192.168.43.185 , this may have to be changed in the main.js file
+run server.py to start the websocket server and data collection in the database
+to view GUI run the python file local.py
 
-temp sensor connected to rpi3 to take readings once every 5 seconds, and 
-display in QT the last, average, highest, and lowest readings for both temp and 
-humidity with time/date of each reading (total of eight timestamped values).
-
-Ability to switch between, degC or degF.
-
-RPi3 should store temp and humidity readings (with timestamps) in a local data store ,
-possible tinydb or Redis. -- Figure out which one to use.
-
-Sensor RPi3 should also run a web server to allow the remote RPi3 to request and display data –
-Required to use websockets as the communication protocol between the sensor RPi3 and the remote display RPi3
--- Tornado looks good.
-
-Stretch Goal - Ability to switch between timezones.
-
-
-///////////////// REMOTE RPI3
-The remote display should be developed as an HTML/jQuery web page that will run on the remote RPi3
---- Check if fantom is a possibility here. It may solve some UI issues etc.
-and talk to the sensor RPi3’s webserver to request data for display
- 
-The webpage should:
-Connect to the sensor RPi3 webserver via websockets
-Indicate any error conditions
-Provide eight buttons to request and display:
-Last temp or humidity reading with timestamp
-Average temp or humidity reading w/timestamp
-Lowest temp or humidity reading w/timestamp
-Highest temp or humidity reading w/timestamp
+Files in the directory
+index.html - base web page to be displayed
+main.js - javascript/jQuery being used in the webpage
+style.css - css style sheets for the webpage
+server.py - setup of websocket server and database and continuous data update
+sensorRead.py - hardware interface functions, reads values from the DHT sensor and GPIO setup, also takes care of unit conversion between degC and degF
+databaseOps.py - database operations and responses to tornado queries
+window_template.py - QT UI template file
+local.py - qt GUI program to display data
 
 
----------
-Suggested Extra Credit Items
-HTTPS secure client/server connection
-Graphing of data on the web page
-------------------
+Project Work --  Aakash Kumar - responsible for all parts
 
-Stretch Goals
-Security HTTPS, instead of HTTP.
-Security, OAuth Login -- Possibilities in tornado
-Data Graphing in HTML, not on the QT framework. -- Possibility of embedding numpy graphs in HTML ?
-Ability to switch an output, once security is done. This should be a possibility.
-If output switches, then a full thermostat can be made. May be seperate UI for it.
 
 
 

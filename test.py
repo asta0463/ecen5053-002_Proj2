@@ -7,8 +7,10 @@ Created on Wed Oct 18 21:42:10 2017
 
 import databaseOps
 
-databaseOps.addDataToDb()
-#databaseOps.showdb()
+#databaseOps.db.all()
+databaseOps.showdb()
 #h,t = databaseOps.getData()
-a,b = databaseOps.calcDayMaximum("temperature")
-print(a,b)
+#a,b = databaseOps.calcDayMaximum("temperature")
+#print(databaseOps.getDateTime(databaseOps.db.all()[0]))
+
+#print(databaseOps.db.all())
