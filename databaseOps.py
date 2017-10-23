@@ -16,9 +16,9 @@ db = TinyDB('proj2Db.json')
 def getData(unit):
     h,t= sensorRead.get_TempHum()
     if(t==None):
-        t="Error- Sensor may be disconnected"
+        t=-1
     if(h==None):
-        h="Error- Sensor may be disconnected"
+        h=-1
     if(unit==1):
         t=sensorRead.todegF(t)
     return (str(round(t,2))+','+str(round(h,2)))
