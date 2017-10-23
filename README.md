@@ -5,8 +5,8 @@ Temperature Sensor Interface with Raspberry Pi and UI using QT Ability to switch
 Using websockets to let another pi view the data collected on the sensor pi
 
 ## Installation Instructions 
-*Clone github repository from https://github.com/aakashpk/ecen5053-002_Proj2 
-*The project uses sendgrid for emailing/messaging of alerts Install sendgrid python API using pip by running
+* Clone github repository from https://github.com/aakashpk/ecen5053-002_Proj2 
+* The project uses sendgrid for emailing/messaging of alerts Install sendgrid python API using pip by running
 
 * pip3 install sendgrid
 
