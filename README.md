@@ -1,8 +1,10 @@
 ## Aakash Kumar
 
 ## Project 2 of ECEN-5053-002 Embedded Interface Design 
-Temperature Sensor Interface with Raspberry Pi and UI using QT Ability to switch between degF and degC values Auto refresh of values at user defined periods
-Using websockets to let another pi view the data collected on the sensor pi
+Temperature Sensor Interfaced with Raspberry Pi and UI developed using QTCreator. 
+Additonal ability to switch between degF and degC values.
+Auto refresh of values at user defined periods.
+Used websockets to let another pi view the data collected on the sensor pi
 
 ## Installation Instructions 
 * Clone github repository from https://github.com/aakashpk/ecen5053-002_Proj2 
